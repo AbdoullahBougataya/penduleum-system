@@ -1,28 +1,3 @@
-/*
-  This code is partitioned into four sections:
-    * Constants & Global variables declarations. 📝
-    * Initialization & setup section. 📌
-    * Looping and realtime processing. 🔁
-    * Function declarations. ▶️
-           -------------------------------------------
-  Tasks:
-    To do 🎯:
-      1. Implement additional signal processing for PID control.
-      2. Implement the PID control algorithms.
-      3. Implement PWM signal generation algorithms.
-      4. Take instructions in real time from the RC controller.
-    In progress ⏳:
-      1. Perform sensor fusion
-    Done ✅:
-      1. Initialize the sensors.
-      2. Calibrate the gyroscope.
-      3. Filters the sensor data.
-           -------------------------------------------
-  The flight controller code was highly inspired from various source in the internet, most notably:
-    * Carbon aeronautics series on making a Quadcopter using Teensy (Arduino compatible).
-    * Phil's Lab series on DSP using STM32 (Included more advanced topics like the Filtering, EKF, Compilmentary...).
- */
-
 #include "./include/BMI160.h"
 #include "./include/RCFilter.h"
 #include "./include/PID.h"
@@ -216,7 +191,7 @@ void setup() {
 
 void loop() {
 
-  // Zeroing the motor throttles
+  // Resetting the motor throttles
   M1 = 0;
   M2 = 0;
 
@@ -257,9 +232,6 @@ void loop() {
     */
     complementaryFilter(accelGyroData, phiHat_rad, thetaHat_rad, SAMPLING_PERIOD, COMP_FLTR_ALPHA); // This function transform the gyro rates and the Accelerometer angles into equivalent euler angles
 
-    // float setPoint = map(analogRead(A0), 0, 1023, -1000, 1000) / 1000.0;
-    // Serial.print(setPoint); Serial.print(", \t");
-
     // Update the PID Controllers
     rollAnglePID = PIDController_Update(&anglesController, SETPOINT, phiHat_rad);
     rollRatePID = PIDController_Update(&ratesController, rollAnglePID, accelGyroData[0]);
@@ -289,10 +261,6 @@ void loop() {
     Serial.print(SETPOINT);
     Serial.print(" \tAngle = ");
     Serial.print(phiHat_rad * RAD2DEG);
-    Serial.print(" \t");
-    Serial.print(M2);
-    Serial.print(" \t");
-    Serial.print(M1);
     Serial.println();
   }
   else

@@ -1,75 +1,65 @@
-<div align='center'><img src='https://github.com/AbdoullahBougataya/Flight_controller/blob/main/img/Quadimg.jpg' alt="Quadcopter" width="400" height="400" style="display: block; margin: 0 auto"/></div>
+<div align='center'><img src='https://github.com/AbdoullahBougataya/penduleum-system/blob/main/img/system.jpeg' alt="System" width="350" height="350" style="display: block; margin: 0 auto"/></div>
 
-# Flight Controller
-
-[![Build Status](https://img.shields.io/badge/build-passing-cyan?style=flat-square&logo=arduino&logoColor=cyan)](https://github.com/AbdoullahBougataya/Flight_controller/.github/workflows/main.yml)
+# Bi-actuated self-balancing aero-penduleum system
 
 > [!TIP]
 > This codebase is compatible with the Arduino UNO board
 
 ## Overview
 
-This repository is the software part of a DIY flight controller. It's for people who want to build their own flight controller. This project is based on what we've learned (and what we're still learning) as Control & Automation engineering students. **The software has features for flight stabilization, sensor integration, PID control, and signal processing**. Compatible with quadcopter drones.
+This repository is the software part of a Bi-actuated self-balancing aero-penduleum system. A bi-actuated pendulum is a system that uses two BLDC to control the position of a pendulum. The system is designed to balance the pendulum in an flat 0° position. The system uses a combination of sensors (Gyroscope + Accelerometer) and actuators to achieve this goal.
 
 ## Project structure
 ``` sh
-/Flight_controller
+/penduleum-system
 ├── /include
 │     ├── BMI160.h
-│     ├── RCFilter.h
-│     └── README
+│     └── RCFilter.h
 ├── /src
 │     ├── BMI160.cpp
 │     └── RCFilter.cpp
-├── Flight_controller.ino
+├── penduleum-system.ino
 ├── LICENSE
 ├── README.md
-├── /lib
-└── /test
+└── .gitignore
 ```
 
 ## Features
 
-- Real-time flight stabilization using **PID control**.
+- Real-time balance stabilization using **PIV control**.
 - Supports the **BMI160 IMU** (**I**nertial **M**easurement **U**nit) sensor.
-- Supports the **BMP280 Barometric sensor** (Altimeter).
-- Communication via **standard RC protocols** (PPM/PWM).
 - Simple sensor communications **using I²C**.
-- Integration with **GPS** (**G**eo**p**ositioning **S**ervice) modules for navigation.
-- Cross-platform compatibility with **Arduino language** compatible boards (UNO, MEGA, ESP32, Teensy...).
+- Minimum modifications required for cross-platform compatibility with **Arduino language** compatible boards (UNO, MEGA, ESP32, Teensy...).
 
 ## Getting Started
 
-Follow these steps to set up and run the Flight Controller software.
+Follow these steps to set up and run the penduleum software.
 
 ### Prerequisites
 
 - [Arduino IDE](https://www.arduino.cc/en/software)
 - Required hardware:
-  - Microcontroller (e.g., [Arduino UNO](https://store.arduino.cc/products/arduino-uno-rev3), [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3)...)
-  - [BMI160](https://www.bosch-sensortec.com/products/motion-sensors/imus/bmi160/) IMU
-  - [BMP280](https://www.bosch-sensortec.com/products/environmental-sensors/pressure-sensors/pressure-sensors-bmp280.html) Barometric sensor
-  - GPS module (optional)
-  - RC transmitter and receiver
+  - Microcontroller (e.g., [Arduino UNO](https://store.arduino.cc/products/arduino-uno-rev3)...)
+  - [BMI160](https://www.bosch-sensortec.com/products/motion-sensors/imus/bmi160/) IMU.
+  - Two BLDC motors with ESCs (Electronic Speed Controllers).
+  - Power supply (e.g., LiPo battery).
+  - Jumper wires for connections.
+  - Mechanical structure for the pendulum.
 
 ### Installation
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/AbdoullahBougataya/Flight_controller.git
+   git clone https://github.com/AbdoullahBougataya/penduleum-system.git
    ```
 2. Open the project in your preferred IDE.
-3. Compile and upload the code to your microcontroller.
-
-## Hardware Configuration
-
-_Waiting for the image_
+3. Compile and upload the code to the controller.
 
 ## Usage
-
-1. Connect the hardware components as per the [Hardware Configuration](#Hardware-Configuration).
-2. Power on the flight controller and **wait 5 seconds** for the sensors to calibrate.
-3. Use your RC transmitter to control the drone.
+1. Connect the **BMI160** IMU to the microcontroller using I²C (SDA, SCL).
+   - Ensure the IMU is powered correctly.
+   - Connect the two ESCs to the appropriate pins on the controller.
+2. Power on the controller and **wait 10 seconds** for the sensors and the ESCs to calibrate.
 
 ## Contributing
 
